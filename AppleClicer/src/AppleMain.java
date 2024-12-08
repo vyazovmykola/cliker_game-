@@ -9,9 +9,9 @@ public class AppleMain {
     public AppleMain() {
         createUI();
     }
-
+//test
     public void createUI() {
-
+//test1
         JFrame window = new JFrame();
         window.setSize(800, 600);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
