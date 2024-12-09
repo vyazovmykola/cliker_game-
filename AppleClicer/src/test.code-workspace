@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Робочий стіл/test"
+		},
+		{
+			"path": "../../../../../Робочий стіл/2BP_Mykola_Viazov_PROJOPP_AP_e3"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"githubPullRequests.remotes": [
+			"origin",
+			"upstream",
+			""
+		]
+	}
+}
