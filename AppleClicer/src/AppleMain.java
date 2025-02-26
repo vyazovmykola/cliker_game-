@@ -1,7 +1,7 @@
 import java.awt.*;
+import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.*;
 
 public class AppleMain {
 
@@ -56,10 +56,18 @@ public class AppleMain {
         JButton autoClickerButton = new JButton("Buy AutoClicker - " + autoClickerCost + " points");
         autoClickerButton.setBounds(350, 220, 300, 50);
 
+        JTextField inputField = new JTextField();
+        inputField.setBounds(350, 350, 150, 30);
+
+        JButton addPointsButton = new JButton("Add Points");
+        addPointsButton.setBounds(510, 350, 140, 30);
+
         window.add(applePanel);
         window.add(scoreLabel);
         window.add(upgradeButton);
         window.add(autoClickerButton);
+        window.add(inputField);
+        window.add(addPointsButton);
 
         appleButton.addActionListener(e -> {
             score += pointsPerClick;
@@ -87,6 +95,21 @@ public class AppleMain {
                 updateScoreLabel();
             } else {
                 JOptionPane.showMessageDialog(window, "Not enough points to buy AutoClicker!");
+            }
+        });
+
+        addPointsButton.addActionListener(e -> {
+            try {
+                int pointsToAdd = Integer.parseInt(inputField.getText());
+                if (pointsToAdd > 0) {
+                    score += pointsToAdd;
+                    inputField.setText(""); 
+                    updateScoreLabel();
+                } else {
+                    JOptionPane.showMessageDialog(window, "Please enter a positive number!");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(window, "Invalid input! Please enter a number.");
             }
         });
 
