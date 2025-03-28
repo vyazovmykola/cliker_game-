@@ -4,18 +4,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AppleMain {
-
     private int score = 0;
     private int pointsPerClick = 1;
     private int pointsUpgradeCost = 10;
     private int autoClickerCost = 50;
     private int autoClickers = 0;
-
     private JLabel scoreLabel;
-
-    public static void main(String[] args) {
-        new AppleMain();
-    }
+    private JPanel mainpanel;
 
     public AppleMain() {
         createUI();
@@ -23,25 +18,23 @@ public class AppleMain {
     }
 
     public void createUI() {
-        JFrame window = new JFrame();
-        window.setSize(800, 600);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().setBackground(Color.green);
-        window.setLayout(null);
+        mainpanel = new JPanel();
+        mainpanel.setLayout(null);
+        mainpanel.setBounds(0, 0, 800, 600);
+        mainpanel.setBackground(Color.GREEN);
 
         ImageIcon appleIcon = new ImageIcon("C:\\Users\\vazov\\IdeaProjects\\AppleClicer\\src\\apple.png");
 
         JButton appleButton = new JButton();
-        appleButton.setBackground(Color.blue);
+        appleButton.setBackground(Color.BLUE);
         appleButton.setFocusPainted(false);
         appleButton.setBorder(null);
         appleButton.setIcon(appleIcon);
 
         JPanel applePanel = new JPanel();
         applePanel.setBounds(100, 220, 200, 200);
-        applePanel.setBackground(Color.lightGray);
+        applePanel.setBackground(Color.LIGHT_GRAY);
         applePanel.setLayout(null);
-
         appleButton.setBounds(0, 0, 200, 200);
         applePanel.add(appleButton);
 
@@ -62,12 +55,12 @@ public class AppleMain {
         JButton addPointsButton = new JButton("Add Points");
         addPointsButton.setBounds(510, 350, 140, 30);
 
-        window.add(applePanel);
-        window.add(scoreLabel);
-        window.add(upgradeButton);
-        window.add(autoClickerButton);
-        window.add(inputField);
-        window.add(addPointsButton);
+        mainpanel.add(applePanel);
+        mainpanel.add(scoreLabel);
+        mainpanel.add(upgradeButton);
+        mainpanel.add(autoClickerButton);
+        mainpanel.add(inputField);
+        mainpanel.add(addPointsButton);
 
         appleButton.addActionListener(e -> {
             score += pointsPerClick;
@@ -82,7 +75,7 @@ public class AppleMain {
                 upgradeButton.setText("Upgrade (+" + pointsPerClick + " per click) - " + pointsUpgradeCost + " points");
                 updateScoreLabel();
             } else {
-                JOptionPane.showMessageDialog(window, "Not enough points to upgrade!");
+                JOptionPane.showMessageDialog(mainpanel, "Not enough points to upgrade!");
             }
         });
 
@@ -94,7 +87,7 @@ public class AppleMain {
                 autoClickerButton.setText("Buy AutoClicker - " + autoClickerCost + " points");
                 updateScoreLabel();
             } else {
-                JOptionPane.showMessageDialog(window, "Not enough points to buy AutoClicker!");
+                JOptionPane.showMessageDialog(mainpanel, "Not enough points to buy AutoClicker!");
             }
         });
 
@@ -103,17 +96,15 @@ public class AppleMain {
                 int pointsToAdd = Integer.parseInt(inputField.getText());
                 if (pointsToAdd > 0) {
                     score += pointsToAdd;
-                    inputField.setText(""); 
+                    inputField.setText("");
                     updateScoreLabel();
                 } else {
-                    JOptionPane.showMessageDialog(window, "Please enter a positive number!");
+                    JOptionPane.showMessageDialog(mainpanel, "Please enter a positive number!");
                 }
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(window, "Invalid input! Please enter a number.");
+                JOptionPane.showMessageDialog(mainpanel, "Invalid input! Please enter a number.");
             }
         });
-
-        window.setVisible(true);
     }
 
     public void startAutoClicker() {
@@ -131,5 +122,9 @@ public class AppleMain {
 
     private void updateScoreLabel() {
         scoreLabel.setText("Score: " + score);
+    }
+
+    public JPanel getMainPanel() {
+        return mainpanel;
     }
 }
