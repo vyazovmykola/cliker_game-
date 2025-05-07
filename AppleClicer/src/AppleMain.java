@@ -12,6 +12,7 @@ public class AppleMain {
     private JLabel scoreLabel;
     private JPanel mainpanel;
 
+    
     public AppleMain() {
         createUI();
         startAutoClicker();
@@ -119,7 +120,7 @@ public class AppleMain {
             }
         }, 0, 1000);
     }
-
+   
     private void updateScoreLabel() {
         scoreLabel.setText("Score: " + score);
     }

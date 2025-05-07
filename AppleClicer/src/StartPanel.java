@@ -22,7 +22,7 @@ public class StartPanel {
         mainPanel.add(welcomeText);
 
         JButton startButton = new JButton("START");
-        startButton.setFont(new Font("Arial", Font.BOLD, 25));
+        //startButton.setFont(new Font("Arial", Font.BOLD, 25)); 
         startButton.setBounds(300, 250, 200, 50);
         startButton.addActionListener(e -> {
             window.getContentPane().removeAll();
