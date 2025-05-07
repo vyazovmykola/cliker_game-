@@ -2,18 +2,34 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.applet.AudioClip;
+import java.net.URL;
 
 public class AppleMain {
     private int score = 0;
+    private int totalscore = 0;
     private int pointsPerClick = 1;
     private int pointsUpgradeCost = 10;
     private int autoClickerCost = 50;
     private int autoClickers = 0;
     private JLabel scoreLabel;
     private JPanel mainpanel;
+    private JLabel totalLabel;
+    private AudioClip upgradeSound;
 
-    
     public AppleMain() {
+        // Load sound effect
+        try {
+            URL soundUrl = getClass().getResource("upgrade.wav");
+            if (soundUrl != null) {
+                upgradeSound = java.applet.Applet.newAudioClip(soundUrl);
+            } else {
+                System.out.println("Could not find sound file");
+            }
+        } catch (Exception e) {
+            System.out.println("Could not load sound file: " + e.getMessage());
+        }
+
         createUI();
         startAutoClicker();
     }
@@ -43,6 +59,11 @@ public class AppleMain {
         scoreLabel.setBounds(350, 50, 300, 50);
         scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
+        totalLabel = new JLabel("Total score: 0");
+        totalLabel.setBounds(350, 90, 300, 50); 
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        mainpanel.add(totalLabel);
+        
         JButton upgradeButton = new JButton(
                 "Upgrade (+" + pointsPerClick + " per click) - " + pointsUpgradeCost + " points");
         upgradeButton.setBounds(350, 150, 300, 50);
@@ -75,6 +96,10 @@ public class AppleMain {
                 pointsUpgradeCost *= 2;
                 upgradeButton.setText("Upgrade (+" + pointsPerClick + " per click) - " + pointsUpgradeCost + " points");
                 updateScoreLabel();
+                
+                if (upgradeSound != null) {
+                    upgradeSound.play();
+                }
             } else {
                 JOptionPane.showMessageDialog(mainpanel, "Not enough points to upgrade!");
             }
@@ -123,8 +148,10 @@ public class AppleMain {
    
     private void updateScoreLabel() {
         scoreLabel.setText("Score: " + score);
+        totalscore += pointsPerClick;
+        totalLabel.setText("Total score: " + totalscore);
     }
-
+    
     public JPanel getMainPanel() {
         return mainpanel;
     }
