@@ -16,13 +16,22 @@ public class AppleMain {
     private JPanel mainpanel;
     private JLabel totalLabel;
     private AudioClip upgradeSound;
+    private AudioClip upgradeSound2;
+    private AudioClip lobbySound;
+    private AudioClip clickSound;
+
 
     public AppleMain() {
-        // Load sound effect
         try {
             URL soundUrl = getClass().getResource("upgrade.wav");
-            if (soundUrl != null) {
+            URL soundUrl2 = getClass().getResource("upgrade2.wav");
+            URL lobby = getClass().getResource("lobby.wav");
+            URL click = getClass().getResource("click.wav");
+            if (soundUrl != null || soundUrl2 != null || lobby !=null || click !=null){
                 upgradeSound = java.applet.Applet.newAudioClip(soundUrl);
+                upgradeSound2 = java.applet.Applet.newAudioClip(soundUrl2);
+                lobbySound = java.applet.Applet.newAudioClip(lobby);
+                clickSound = java.applet.Applet.newAudioClip(click);
             } else {
                 System.out.println("Could not find sound file");
             }
@@ -30,8 +39,12 @@ public class AppleMain {
             System.out.println("Could not load sound file: " + e.getMessage());
         }
 
+
         createUI();
         startAutoClicker();
+        if (lobbySound != null) {
+            lobbySound.play();
+        }
     }
 
     public void createUI() {
@@ -86,6 +99,9 @@ public class AppleMain {
 
         appleButton.addActionListener(e -> {
             score += pointsPerClick;
+            if (clickSound != null) {
+                clickSound.play();
+            }
             updateScoreLabel();
         });
 
@@ -112,6 +128,10 @@ public class AppleMain {
                 autoClickerCost *= 2;
                 autoClickerButton.setText("Buy AutoClicker - " + autoClickerCost + " points");
                 updateScoreLabel();
+
+                if (upgradeSound2 != null) {
+                    upgradeSound2.play();
+                }
             } else {
                 JOptionPane.showMessageDialog(mainpanel, "Not enough points to buy AutoClicker!");
             }
